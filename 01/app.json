@@ -1,0 +1,63 @@
+{
+  "pages": [
+
+    "pages/products/products",
+    "pages/product/product",
+    "pages/shop/shop",
+    "pages/wode/wode/wode",
+    "pages/wode/addressEditor/addressEditor",
+    
+    "pages/admin/admin/admin",
+    "pages/admin/shop/shop",
+    "pages/admin/products/products",
+    "pages/admin/product/product",
+    "pages/admin/coupons/coupons",
+    "pages/admin/coupon/coupon",
+    "pages/admin/customer/customer",
+    "pages/admin/datavers/datavers"
+  ],
+
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#f2f2f2"
+  },
+
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#09bb08",
+    "backgroundColor": "#f2f2f2",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/products/products",
+        "text": "首页",
+        "iconPath": "images/tab/01/home.png",
+        "selectedIconPath": "images/tab/02/home.png"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "店铺信息",
+        "iconPath": "images/tab/01/shop.png",
+        "selectedIconPath": "images/tab/02/shop.png"
+      },
+      {
+        "pagePath": "pages/wode/wode/wode",
+        "text": "我的",
+        "iconPath": "images/tab/01/user.png",
+        "selectedIconPath": "images/tab/02/user.png"
+      },
+      {
+        "pagePath": "pages/admin/admin/admin",
+        "text": "后台管理",
+        "iconPath": "images/tab/01/admin.png",
+        "selectedIconPath": "images/tab/02/admin.png"
+      }
+    ]
+  },
+
+  "networkTimeout": {
+    "request": 30000
+  }
+
+}

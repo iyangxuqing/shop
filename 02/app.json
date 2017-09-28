@@ -1,8 +1,6 @@
 {
   "pages": [
 
-    "pages/test/test",
-
     "pages/products/products",
     "pages/product/product",
     "pages/shop/shop",

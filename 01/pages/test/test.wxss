@@ -1,0 +1,18 @@
+@import '/template/tabbar/tabbar.wxss';
+
+page {
+  height: 100%;
+}
+
+.container {
+  height: calc(100% - 120rpx);
+  overflow: hidden;
+}
+
+.page {
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling : touch;
+}
+

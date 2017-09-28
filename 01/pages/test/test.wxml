@@ -1,0 +1,13 @@
+<import src="/template/tabbar/tabbar.wxml" />
+<template is="tabbar" data="{{...tabbar}}" />
+
+<view class="container">
+  <view class="page page-1" wx:if="{{page==0}}">1
+  </view>
+  <view class="page page-2" wx:if="{{page==1}}">2
+  </view>
+  <view class="page page-3" wx:if="{{page==2}}">3
+  </view>
+  <view class="page page-4" wx:if="{{page==3}}">4
+  </view>
+</view>

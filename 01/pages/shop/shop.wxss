@@ -26,18 +26,18 @@
   border: 1px solid #ddd;
 }
 
-.row {
+.page-shop-row {
   display: flex;
   align-items: center;
   min-height: 110rpx;
   border-bottom: 1px solid #ddd;
 }
 
-.row:first-child {
+.page-shop-row:first-child {
   border-top: 1px solid #ddd;
 }
 
-.row .icon {
+.page-shop-row .icon {
   flex-shrink: 0;
   width: 100rpx;
   height: 100rpx;
@@ -45,7 +45,7 @@
   margin-left: -10rpx;
 }
 
-.row .text {
+.page-shop-row .text {
   flex-grow: 1;
   margin-left: -10rpx;
 }

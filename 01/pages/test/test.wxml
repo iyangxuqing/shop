@@ -1,13 +1,21 @@
 <import src="/template/tabbar/tabbar.wxml" />
 <template is="tabbar" data="{{...tabbar}}" />
+<import src="/pages/products/products.wxml" />
+<import src="/pages/shop/shop.wxml" />
+<import src="/pages/wode/wode/wode.wxml" />
+<import src="/pages/admin/admin/admin.wxml" />
 
 <view class="container">
-  <view class="page page-1" wx:if="{{page==0}}">1
+  <view class="page page-1" wx:if="{{page==0}}">
+    <template is="page-products" data="{{...pageProducts, youImageMode}}" />
   </view>
-  <view class="page page-2" wx:if="{{page==1}}">2
+  <view class="page page-2" wx:if="{{page==1}}">
+    <template is="page-shop" data="{{...pageShop, youImageMode}}" />
   </view>
-  <view class="page page-3" wx:if="{{page==2}}">3
+  <view class="page page-3" wx:if="{{page==2}}">
+    <template is="page-wode" data="{{...pageWode, youImageMode}}" />
   </view>
-  <view class="page page-4" wx:if="{{page==3}}">4
+  <view class="page page-4" wx:if="{{page==3}}">
+    <template is="page-admin" data="{{...pageAdmin}}" />
   </view>
 </view>

@@ -8,6 +8,7 @@ let data = {
     numberError: false,
     codeError: false,
     verified: false,
+    codeInputAnimateCss: ''
   }
 }
 
@@ -18,20 +19,21 @@ let methods = {
     let mobile = e.detail.value.number
     if (mobile == '') return
 
-    let codeRequestText = page.data.mobile.codeRequestText
+    let codeRequestText = this.data.codeRequestText
     if (codeRequestText != '发送验证码') return
 
     var reg = /^1[3|4|5|7|8]\d{9}$/
     if (!reg.test(mobile)) {
       getApp().listener.trigger('toptip', '手机号码输入有误')
       page.setData({
-        'mobile.numberError': true
+        [this.scope + '.numberError']: true
       })
       return
     }
 
+    this.data.number = mobile
     page.setData({
-      'mobile.number': mobile
+      [this.scope + '.number']: this.data.number
     })
 
     User.mobileCodeRequest(mobile)
@@ -39,81 +41,83 @@ let methods = {
         if (res.error == 'this mobile is used') {
           getApp().listener.trigger('toptip', '手机号码已被绑定')
           page.setData({
-            'mobile.numberError': true
+            [this.scope + '.numberError']: true
           })
         }
-      })
+      }.bind(this))
 
     let second = 60
+    this.data.codeRequestText = '60秒后重发'
     page.setData({
-      'mobile.codeRequestText': '60秒后重发'
+      [this.scope + '.codeRequestText']: this.data.codeRequestText
     })
     let timer = setInterval(function () {
       second--
       if (second == 0) {
-        let codeRequestText = '发送验证码'
+        this.data.codeRequestText = '发送验证码'
         page.setData({
-          'mobile.codeRequestText': codeRequestText
+          [this.scope + '.codeRequestText']: this.data.codeRequestText
         })
         clearInterval(timer)
       } else {
-        let codeRequestText = second + '秒后重发'
-        if (second < 10) codeRequestText = '0' + codeRequestText
+        this.data.codeRequestText = second + '秒后重发'
+        if (second < 10) this.data.codeRequestText = '0' + this.data.codeRequestText
         page.setData({
-          'mobile.codeRequestText': codeRequestText
+          [this.scope + '.codeRequestText']: this.data.codeRequestText
         })
       }
-    }, 1000)
+    }.bind(this), 1000)
   },
 
   onNumberInputFocus: function (e) {
     let page = getCurrentPages().pop()
     page.setData({
-      'mobile.numberError': false
+      [this.scope + '.numberError']: false
     })
   },
 
   onCodeInput: function (e) {
     let page = getCurrentPages().pop()
+    this.data.code = e.detail.value
     page.setData({
-      'mobile.code': e.detail.value
+      [this.scope + '.code']: this.data.code
     })
   },
 
   onCodeInputFocus: function (e) {
     let page = getCurrentPages().pop()
     page.setData({
-      'mobile.codeError': false
+      [this.scope + '.codeError']: false
     })
   },
 
   onCodeConfirm: function (e) {
     let page = getCurrentPages().pop()
-    let mobile = page.data.mobile.number
-    let code = page.data.mobile.code
+    let mobile = this.data.number
+    let code = this.data.code
     if (code == '') return;
 
     User.mobileCodeVerify(mobile, code)
       .then(function (res) {
         if (!res.error) {
           page.setData({
-            'mobile.codeInputAnimateCss': 'slideUp'
+            [this.scope + '.codeInputAnimateCss']: 'slideUp'
           })
-          setTimeout(() => {
+          setTimeout(function () {
             page.setData({
-              'mobile.verified': true,
+              [this.scope + '.verified']: true
             })
-          }, 300)
+          }.bind(this), 3000)
         } else {
           page.setData({
-            'mobile.codeError': true
+            [this.scope + '.codeError']: true
           })
           getApp().listener.trigger('toptip', '验证码错误')
         }
       }.bind(this))
       .catch(function (res) {
         page.setData({
-          'mobile.codeError': true
+          [this.scope + '.codeError']: true
         })
         getApp().listener.trigger('toptip', '验证码错误')
       }.bind(this))
@@ -121,39 +125,20 @@ let methods = {
 }
 
 export class Mobile {
-  constructor(options) {
-    this.init()
-  }
 
-  init() {
+  constructor(options, parentScope) {
     let page = getCurrentPages().pop()
-    let user = wx.getStorageSync('user') || {}
-    let mobile = {
-      number: user.mobile,
-      verified: user.mobileVerified
-    }
-    mobile = Object.assign({}, data.mobile, mobile)
+    this.scope = parentScope ? parentScope + '.mobile' : 'mobile'
+    this.data = data.mobile
     page.setData({
-      mobile: mobile
+      [this.scope]: data.mobile
     })
     for (let key in methods) {
-      page['mobile.' + key] = methods[key].bind(this)
+      page[this.scope + '.' + key] = methods[key].bind(this)
       page.setData({
-        ['mobile.' + key]: 'mobile.' + key
+        [this.scope + '.' + key]: this.scope + '.' + key
       })
     }
   }
 
-  // update() {
-  //   let page = getCurrentPages().pop()
-  //   let user = wx.getStorageSync('user') || {}
-  //   let mobile = {
-  //     number: user.mobile,
-  //     verified: user.mobileVerified
-  //   }
-  //   page.setData({
-  //     'mobile.number': mobile.number,
-  //     'mobile.verified': mobile.verified
-  //   })
-  // }
 }

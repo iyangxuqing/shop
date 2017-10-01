@@ -1,6 +1,6 @@
 <template name="userInfo">
   <view class="userInfo">
-    <button bindgetuserinfo="getUserInfo" open-type="getUserInfo" hover-class="none">
+    <button bindgetuserinfo="{{getUserInfo}}" open-type="getUserInfo" hover-class="none">
       <view class="userInfo-avatar">
         <image src="{{avatarUrl || '/images/icon/user.png'}}" />
       </view>

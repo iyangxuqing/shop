@@ -1,4 +1,8 @@
 @import '/template/tabbar/tabbar.wxss';
+@import '/pages/products/products.wxss';
+@import '/pages/shop/shop.wxss';
+@import '/pages/wode/wode/wode.wxss';
+@import '/pages/admin/admin/admin.wxss';
 
 page {
   height: 100%;

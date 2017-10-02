@@ -10,11 +10,8 @@ let data = {
 
 let methods = {
   getUserInfo: function (e) {
-    let page = getCurrentPages().pop()
     if (e.detail.userInfo) {
-      page.setData({
-        [this.scope]: e.detail.userInfo
-      })
+      this.setData(e.detail.userInfo)
       User.setUser(e.detail.userInfo)
     }
   }
@@ -22,6 +19,11 @@ let methods = {
 
 export class UserInfo extends Component {
   constructor(options, parentScope) {
-    super('userInfo', parentScope, options, data, methods)
+    super({
+      scope: 'userInfo',
+      parentScope: parentScope,
+      data: options,
+      methods: methods
+    })
   }
 }

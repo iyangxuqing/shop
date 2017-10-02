@@ -1,24 +1,18 @@
-import { Component } from '../../../template/component.js'
-import { UserInfo } from '../../../template/userinfo/userinfo.js'
-import { Mobile } from '../../../template/mobile/mobile.js'
-import { Address } from '../../../template/address/address.js'
-import { __Coupons } from '../../../template/coupons/coupons.js'
-import { User } from '../../../utils/user.js'
-import { Coupons } from '../../../utils/coupons.js'
-
-let data = {
-  defaults: {}
-}
-
-let methods = {
-
-}
+import { Component } from '../component.js'
+import { UserInfo } from '../../template/userinfo/userinfo.js'
+import { Mobile } from '../../template/mobile/mobile.js'
+import { Address } from '../../template/address/address.js'
+import { __Coupons } from '../../template/coupons/coupons.js'
+import { User } from '../../utils/user.js'
+import { Coupons } from '../../utils/coupons.js'
 
 export class PageWode extends Component {
 
   constructor(options) {
-    super('pageWode', '', options, data, methods)
-    this.loadData()
+    super({
+      scope: 'pageWode',
+      data: options,
+    })
   }
 
   loadData() {

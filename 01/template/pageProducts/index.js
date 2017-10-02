@@ -1,3 +1,4 @@
+import { Component } from '../component.js'
 import { Resource } from '../../utils/resource.js'
 import { Products } from '../../utils/products.js'
 
@@ -12,36 +13,31 @@ let methods = {
 
 }
 
-export class PageProducts {
+export class PageProducts extends Component {
 
   constructor(options) {
-    let page = getCurrentPages().pop()
-    page.setData({
-      pageProducts: {}
+    super({
+      scope: 'pageProducts',
+      data: options,
+      methods: methods,
     })
-    for (let key in methods) {
-      page['pageProducts.' + key] = methods[key].bind(this)
-      page.setData({
-        ['pageProducts.' + key]: 'pageProducts.' + key
-      })
-    }
   }
 
   loadData() {
-    let page = getCurrentPages().pop()
     Promise.all([Resource.get(), Products.getProducts()]).then(function (res) {
       let resource = res[0]
       let products = res[1]
       let homeLogo = resource['homeLogo']
       let homeSlogan = resource['homeSlogan']
       let homeHeadImages = JSON.parse(resource['homeHeadImages'] || '[]')
-      page.setData({
-        'pageProducts.products': products,
-        'pageProducts.homeLogo': homeLogo,
-        'pageProducts.homeSlogan': homeSlogan,
-        'pageProducts.homeHeadImages': homeHeadImages
+
+      this.setData({
+        products,
+        homeLogo,
+        homeSlogan,
+        homeHeadImages
       })
-    })
+    }.bind(this))
   }
 
   onResourceUpdate(resource) {
@@ -49,17 +45,16 @@ export class PageProducts {
     let homeLogo = resource['homeLogo']
     let homeSlogan = resource['homeSlogan']
     let homeHeadImages = JSON.parse(resource['homeHeadImages'] || '[]')
-    page.setData({
-      'pageProduct.homeLogo': homeLogo,
-      'pageProduct.homeSlogan': homeSlogan,
-      'pageProduct.homeHeadImages': homeHeadImages,
+    this.setData({
+      homeLogo,
+      homeSlogan,
+      homeHeadImages
     })
   }
 
   onProductsUpdate(products) {
-    let page = getCurrentPages().pop()
-    page.setData({
-      'pageProduct.products': products
+    this.setData({
+      products
     })
   }
 

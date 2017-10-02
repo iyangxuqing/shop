@@ -1,13 +1,4 @@
-import { User } from '../../utils/user.js'
-
-let data = {
-  address: {
-    province: '',
-    city: '',
-    district: '',
-    detail: '',
-  }
-}
+import { Component } from '../component.js'
 
 let methods = {
 
@@ -24,32 +15,19 @@ let methods = {
 
 }
 
-export class Address {
+export class Address extends Component {
 
   constructor(options, parentScope) {
-    let page = getCurrentPages().pop()
-    this.scope = parentScope ? parentScope + '.address' : 'address'
-    this.data = data.mobile
-    page.setData({
-      [this.scope]: data.mobile
+    super({
+      scope: 'address',
+      parentScope: parentScope,
+      data: options,
+      methods: methods
     })
-    for (let key in methods) {
-      page[this.scope + '.' + key] = methods[key].bind(this)
-      page.setData({
-        [this.scope + '.' + key]: this.scope + '.' + key
-      })
-    }
   }
 
-  getData() {
-    let page = getCurrentPages().pop()
-    let data = page.data
-    let scope = this.scope
-    let names = scope.split('.')
-    for(let i in names){
-      data = data[names[i]]
-    }
-    return data
+  onAddressUpdate(address) {
+    this.setData(address)
   }
 
 }

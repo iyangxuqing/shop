@@ -122,6 +122,11 @@ let methods = {
 
 export class Mobile extends Component {
   constructor(options, parentScope){
-    super('mobile', parentScope, options, data, methods)
+    super({
+      scope: 'mobile',
+      parentScope: parentScope,
+      data: Object.assign({}, data.defaults, options),
+      methods: methods
+    })
   }
 }

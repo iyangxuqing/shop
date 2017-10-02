@@ -9,7 +9,7 @@ let tabs = [
   },
   {
     url: "/pages/products/products",
-    text: "商品",
+    text: "店铺信息",
     icon: "/images/tab/01/shop.png",
     activeIcon: "/images/tab/02/shop.png",
     active: false,

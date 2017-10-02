@@ -3,6 +3,7 @@
 @import '/template/address/address.wxss';
 @import '/template/coupons/coupons.wxss';
 
-page {
+.page-wode {
+  padding: 0 30rpx;
   background-color: #f2f2f2;
 }

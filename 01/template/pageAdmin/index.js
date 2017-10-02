@@ -1,8 +1,8 @@
+import { Component } from '../component.js'
 
 let methods = {
 
   onAdminProductTap: function (e) {
-    console.log(e)
     wx.navigateTo({
       url: '/pages/admin/products/products',
     })
@@ -33,27 +33,21 @@ let methods = {
   },
 
   onDataverShow: function (e) {
-    let page = getCurrentPages().pop()
-    page.setData({
-      'pageAdmin.dataverShow': true
+    this.setData({
+      dataverShow: true
     })
   },
 
 }
 
-export class PageAdmin{
+export class PageAdmin extends Component {
 
-  constructor(options){
-    let page = getCurrentPages().pop()
-    page.setData({
-      pageAdmin: {}
+  constructor(options) {
+    super({
+      scope: 'pageAdmin',
+      data: options,
+      methods: methods
     })
-    for (let key in methods) {
-      page['pageAdmin.' + key] = methods[key].bind(this)
-      page.setData({
-        ['pageAdmin.' + key]: 'pageAdmin.' + key
-      })
-    }
   }
 
 }

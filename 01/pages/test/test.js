@@ -1,12 +1,11 @@
 import { Loading } from '../../template/loading/loading.js'
+import { Toptip } from '../../template/toptip/toptip.js'
 import { Tabbar } from '../../template/tabbar/tabbar.js'
-import { Resource } from '../../utils/resource.js'
-import { Products } from '../../utils/products.js'
 
-import { PageProducts } from '../../pages/products/_products.js'
-import { PageShop } from '../../pages/shop/_shop.js'
-import { PageWode } from '../../pages/wode/wode/_wode.js'
-import { PageAdmin } from '../../pages/admin/admin/_admin.js'
+import { PageProducts } from '../../template/pageProducts/index.js'
+import { PageShop } from '../../template/pageShop/index.js'
+import { PageWode } from '../../template/pageWode/index.js'
+import { PageAdmin } from '../../template/pageAdmin/index.js'
 
 let app = getApp()
 
@@ -15,12 +14,6 @@ Page({
   data: {
     youImageMode: app.youImageMode,
     page: 0,
-    // pageWode: {
-    //   userInfo,
-    //   mobile,
-    //   address,
-    //   coupons: []
-    // }
   },
 
   onTabChanged: function (index) {
@@ -33,6 +26,19 @@ Page({
     if (index == 1) {
       this.pageShop.loadData()
     }
+    if (index == 2) {
+      this.pageWode.loadData()
+    }
+  },
+
+  onToptip: function (message) {
+    this.toptip.show({
+      title: message,
+    })
+  },
+
+  onShopUpdate: function (shop) {
+    this.pageShop.onShopUpdate(shop)
   },
 
   onResourceUpdate: function (resource) {
@@ -43,11 +49,20 @@ Page({
     this.pageProducts.onProductsUpdate(products)
   },
 
+  onAddressUpdate: function (address) {
+    this.pageWode.address.onAddressUpdate(address)
+  },
+
+  onCouponsUpdate: function (coupons) {
+    this.pageWode.__coupons.onCouponsUpdate(coupons)
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.loading = new Loading()
+    this.toptip = new Toptip()
     this.tabbar = new Tabbar({
       onTabChanged: this.onTabChanged
     })
@@ -57,8 +72,12 @@ Page({
     this.pageWode = new PageWode()
     this.pageAdmin = new PageAdmin()
 
+    app.listener.on('toptip', this.onToptip)
+    app.listener.on('shop', this.onShopUpdate)
     app.listener.on('resource', this.onResourceUpdate)
     app.listener.on('products', this.onProductsUpdate)
+    app.listener.on('addressUpdate', this.onAddressUpdate)
+    app.listener.on('couponsUpdate', this.onCouponsUpdate)
 
   },
 

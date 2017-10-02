@@ -2,6 +2,7 @@
 @import '/template/toptip/toptip.wxss';
 @import '/template/userinfo/userinfo.wxss';
 @import '/template/mobile/mobile.wxss';
+@import '/template/address/address.wxss';
 
 page {
   background-color: #f2f2f2;

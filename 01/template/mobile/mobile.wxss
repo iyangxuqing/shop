@@ -11,8 +11,8 @@
   background-color: #fff;
 }
 
-.mobile-row + .mobile-row {
-  border-top: 1px solid #eee;
+.mobile-row {
+  border-bottom: 1px solid #eee;
 }
 
 .mobile-row-icon {

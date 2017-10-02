@@ -1,6 +1,7 @@
 import { Toptip } from '../../../template/toptip/toptip.js'
 import { UserInfo } from '../../../template/userinfo/userinfo.js'
 import { Mobile } from '../../../template/mobile/mobile.js'
+import { Address } from '../../../template/address/address.js'
 import { User } from '../../../utils/user.js'
 import { Coupons } from '../../../utils/coupons.js'
 
@@ -13,18 +14,6 @@ let methods = {
       })
       User.setUser(e.detail.userInfo)
     }
-  },
-
-  onAddressTap: function (e) {
-    console.log(e)
-    let address = this.data.address || {}
-    let province = address.province || ''
-    let city = address.city || ''
-    let district = address.district || ''
-    let detail = address.detail || ''
-    wx.navigateTo({
-      url: '/pages/wode/addressEditor/addressEditor?province=' + province + '&city=' + city + '&district=' + district + '&detail=' + detail,
-    })
   },
 
   onToptip: function (message) {
@@ -48,6 +37,30 @@ let methods = {
 
 export class PageWode {
 
+  loadData(){
+    User.getUser({
+      fields: 'avatarUrl, nickName, mobileNumber, mobileVerified, address_province, address_city, address_district, address_detail',
+    }).then(function (user) {
+      if (!user) user = {}
+      let userInfo = {
+        nickName: user.nickName,
+        avatarUrl: user.avatarUrl
+      }
+      let mobile = {
+        number: user.mobileNumber,
+        verified: user.mobileVerified == 1
+      }
+      let address = {
+        province: user.address_province,
+        city: user.address_city,
+        district: user.address_district,
+        detail: user.address_detail
+      }
+      this.userInfo = new UserInfo(userInfo, 'pageWode')
+      this.mobile = new Mobile(mobile, 'pageWode')
+    }.bind(this))
+  }
+
   constructor(options) {
     let page = getCurrentPages().pop()
     page.setData({
@@ -59,9 +72,11 @@ export class PageWode {
         ['pageWode.' + key]: 'pageWode.' + key
       })
     }
+    this.loadData()
 
-    this.userInfo = new UserInfo({}, 'pageWode')
-    this.mobile = new Mobile({}, 'pageWode')
+    // this.userInfo = new UserInfo({}, 'pageWode')
+    // this.mobile = new Mobile({}, 'pageWode')
+    // this.address = new Address({}, 'pageWode')
   }
 
 }

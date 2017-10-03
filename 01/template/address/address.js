@@ -9,7 +9,7 @@ let methods = {
     let district = address.district || ''
     let detail = address.detail || ''
     wx.navigateTo({
-      url: '/pages/wode/addressEditor/addressEditor?province=' + province + '&city=' + city + '&district=' + district + '&detail=' + detail,
+      url: '/pages/addressEditor/addressEditor?province=' + province + '&city=' + city + '&district=' + district + '&detail=' + detail,
     })
   }
 

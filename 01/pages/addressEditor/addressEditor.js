@@ -1,6 +1,6 @@
-import { Loading } from '../../../template/loading/loading.js'
-import { Toptip } from '../../../template/toptip/toptip.js'
-import { User } from "../../../utils/user.js"
+import { Loading } from '../../template/loading/loading.js'
+import { Toptip } from '../../template/toptip/toptip.js'
+import { User } from "../../utils/user.js"
 
 let app = getApp()
 

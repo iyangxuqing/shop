@@ -1,8 +1,0 @@
-@import '/template/userinfo/userinfo.wxss';
-@import '/template/mobile/mobile.wxss';
-@import '/template/address/address.wxss';
-@import '/template/coupons/coupons.wxss';
-
-page {
-  background-color: #f2f2f2;
-}

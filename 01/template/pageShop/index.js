@@ -35,7 +35,8 @@ export class PageShop extends Component {
   loadData() {
     Shop.get().then(function (shop) {
       this.setData({
-        shop
+        shop,
+        ready: true
       })
     }.bind(this))
   }

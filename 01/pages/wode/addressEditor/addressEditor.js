@@ -49,7 +49,7 @@ Page({
         this.toptip.show({
           title: '地址保存成功',
           success: function () {
-            app.listener.trigger('addressUpdate', {
+            app.listener.trigger('address', {
               province: address_province,
               city: address_city,
               district: address_district,

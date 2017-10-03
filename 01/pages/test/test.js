@@ -22,12 +22,21 @@ Page({
     })
     if (index == 0) {
       this.pageProducts.loadData()
+      wx.setNavigationBarTitle({
+        title: '首页',
+      })
     }
     if (index == 1) {
       this.pageShop.loadData()
+      wx.setNavigationBarTitle({
+        title: '店铺信息',
+      })
     }
     if (index == 2) {
       this.pageWode.loadData()
+      wx.setNavigationBarTitle({
+        title: '我的',
+      })
     }
   },
 
@@ -37,24 +46,8 @@ Page({
     })
   },
 
-  onShopUpdate: function (shop) {
-    this.pageShop.onShopUpdate(shop)
-  },
-
-  onResourceUpdate: function (resource) {
-    this.pageProducts.onResourceUpdate(resource)
-  },
-
-  onProductsUpdate: function (products) {
-    this.pageProducts.onProductsUpdate(products)
-  },
-
   onAddressUpdate: function (address) {
     this.pageWode.address.onAddressUpdate(address)
-  },
-
-  onCouponsUpdate: function (coupons) {
-    this.pageWode.__coupons.onCouponsUpdate(coupons)
   },
 
   /**
@@ -67,17 +60,13 @@ Page({
       onTabChanged: this.onTabChanged
     })
     this.pageProducts = new PageProducts()
-    this.pageProducts.loadData()
     this.pageShop = new PageShop()
     this.pageWode = new PageWode()
     this.pageAdmin = new PageAdmin()
+    this.onTabChanged(0)
 
     app.listener.on('toptip', this.onToptip)
-    app.listener.on('shop', this.onShopUpdate)
-    app.listener.on('resource', this.onResourceUpdate)
-    app.listener.on('products', this.onProductsUpdate)
-    app.listener.on('addressUpdate', this.onAddressUpdate)
-    app.listener.on('couponsUpdate', this.onCouponsUpdate)
+    app.listener.on('address', this.onAddressUpdate)
 
   },
 

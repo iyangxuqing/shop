@@ -1,5 +1,5 @@
 <template name="page-products">
-  <view class="page-products">
+  <view class="page-products" wx:if="{{ready}}">
     <view class="homeHeadImages" wx:if="{{homeHeadImages}}">
       <swiper autoplay="true" circular="true">
         <block wx:for="{{homeHeadImages}}" wx:key="">

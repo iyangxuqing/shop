@@ -4,7 +4,7 @@
 <import src='/template/coupons/coupons.wxml' />
 
 <template name="page-wode">
-  <view class="page-wode">
+  <view class="page-wode" wx:if="{{ready}}">
     <template is="userInfo" data="{{...userInfo}}" />
     <template is="mobile" data="{{...mobile}}" />
     <template is="address" data="{{...address}}" />

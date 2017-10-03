@@ -87,7 +87,6 @@ Page({
           coupon.id = res.insertId
           coupons.push(coupon)
         }
-        app.listener.trigger('coupons', coupons)
       })
     }
   },

@@ -16,10 +16,11 @@ export class PageWode extends Component {
   }
 
   loadData() {
-    User.getUser({
-      fields: 'avatarUrl, nickName, mobileNumber, mobileVerified, address_province, address_city, address_district, address_detail',
-    }).then(function (user) {
-      if (!user) user = {}
+    Promise.all([User.getUser({
+      fields: 'avatarUrl,nickName,mobileNumber,mobileVerified,address_province,address_city,address_district,address_detail'
+    }), Coupons.getCoupons()]).then(function (res) {
+      let user = res[0] || {}
+      let coupons = res[1] || []
       let userInfo = {
         nickName: user.nickName,
         avatarUrl: user.avatarUrl
@@ -37,10 +38,10 @@ export class PageWode extends Component {
       this.userInfo = new UserInfo(userInfo, 'pageWode')
       this.mobile = new Mobile(mobile, 'pageWode')
       this.address = new Address(address, 'pageWode')
-    }.bind(this))
-
-    Coupons.getCoupons().then(function (coupons) {
       this.__coupons = new __Coupons(coupons, 'pageWode')
+      this.setData({
+        ready: true
+      })
     }.bind(this))
   }
 

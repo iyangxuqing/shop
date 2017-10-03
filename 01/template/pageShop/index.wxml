@@ -1,5 +1,5 @@
 <template name="page-shop">
-  <view class="page-shop">
+  <view class="page-shop" wx:if="{{ready}}">
 
     <view class="header">
       <view class="shop-name">{{shop.name || '店铺名称'}}</view>

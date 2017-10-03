@@ -35,7 +35,8 @@ export class PageProducts extends Component {
         products,
         homeLogo,
         homeSlogan,
-        homeHeadImages
+        homeHeadImages,
+        ready: true
       })
     }.bind(this))
   }
